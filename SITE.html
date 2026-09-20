@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bridger: Western — Dossiê de Valores & Tier List</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A4%A0%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#171009;
+    --bg-alt:#1E160D;
+    --paper:#EDE0BF;
+    --paper-2:#E2D1A2;
+    --ink:#271D12;
+    --ink-soft:#5A4A32;
+    --rust:#AE461B;
+    --rust-dark:#8A3714;
+    --brass:#C4922E;
+    --blood:#7C1A22;
+    --line:#3B2C19;
+    --line-light:#C9B685;
+    --cream:#F4EAD1;
+    --shadow:0 10px 24px rgba(0,0,0,.35);
+    --radius:3px;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at 20% -10%, #2A1D10 0%, transparent 55%),
+      radial-gradient(ellipse at 100% 0%, #241A0F 0%, transparent 45%),
+      var(--bg);
+    color:var(--cream);
+    font-family:"Work Sans",system-ui,sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:"Rye",serif;font-weight:400;color:var(--cream);letter-spacing:.3px;margin:0;}
+  p{margin:0 0 .7em;}
+  a{color:var(--brass);}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;}
+  ::selection{background:var(--rust);color:var(--cream);}
+  :focus-visible{outline:2px solid var(--brass);outline-offset:2px;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+  }
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:56px 0 34px;
+    border-bottom:6px double var(--line-light);
+    background:
+      repeating-linear-gradient(115deg, rgba(255,255,255,.015) 0 2px, transparent 2px 5px),
+      linear-gradient(180deg,#20160C, #150F08 85%);
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;inset:0;
+    background:
+      radial-gradient(circle at 12% 30%, rgba(174,70,27,.18), transparent 40%),
+      radial-gradient(circle at 88% 70%, rgba(196,146,46,.14), transparent 45%);
+    pointer-events:none;
+  }
+  .hero-inner{position:relative;display:flex;flex-wrap:wrap;gap:32px;align-items:flex-end;justify-content:space-between;}
+  .kicker{
+    display:inline-block;
+    font-size:.72rem;
+    font-weight:700;
+    color:var(--brass);
+    border:1px solid var(--brass);
+    padding:3px 10px;
+    border-radius:2px;
+    margin-bottom:14px;
+    background:rgba(196,146,46,.08);
+  }
+  .hero h1{font-size:clamp(2.4rem,6vw,4.4rem);line-height:.98;color:var(--cream);text-shadow:0 3px 0 rgba(0,0,0,.4);}
+  .hero h1 span{color:var(--rust);}
+  .hero-sub{max-width:560px;font-size:1.05rem;color:#D9C7A0;margin-top:14px;}
+  .hero-facts{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(120px,1fr));
+    gap:10px 26px;
+    background:rgba(0,0,0,.28);
+    border:1px solid var(--line-light);
+    padding:18px 22px;
+    min-width:280px;
+  }
+  .hero-facts div b{display:block;font-size:1.5rem;font-family:"Rye",serif;color:var(--brass);}
+  .hero-facts div span{font-size:.74rem;color:#C9B685;text-transform:none;}
+  .hero-note{
+    margin-top:18px;
+    font-size:.86rem;
+    color:#C9A876;
+    border-left:3px solid var(--rust);
+    padding:8px 14px;
+    background:rgba(174,70,27,.08);
+    max-width:720px;
+  }
+  .hero-note b{color:var(--cream);}
+
+  /* ---------- NAV ---------- */
+  nav.tabs{
+    position:sticky;top:0;z-index:40;
+    background:#140D07ee;
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+    overflow-x:auto;
+  }
+  nav.tabs .wrap{display:flex;gap:2px;padding:0 24px;}
+  nav.tabs button{
+    flex:0 0 auto;
+    background:none;border:none;
+    color:#C9B685;
+    padding:16px 16px 13px;
+    font-size:.92rem;
+    font-weight:600;
+    cursor:pointer;
+    border-bottom:3px solid transparent;
+    white-space:nowrap;
+  }
+  nav.tabs button:hover{color:var(--cream);}
+  nav.tabs button.active{color:var(--cream);border-bottom-color:var(--rust);}
+
+  main{padding:38px 0 20px;}
+  section.panel{display:none;}
+  section.panel.active{display:block;animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+
+  .section-head{margin-bottom:22px;}
+  .section-head h2{font-size:1.9rem;color:var(--cream);}
+  .section-head p{color:#C9B685;max-width:760px;font-size:.96rem;}
+
+  /* ---------- CONTROLS ---------- */
+  .controls{
+    display:flex;flex-wrap:wrap;gap:10px;
+    align-items:center;
+    margin-bottom:26px;
+    padding:14px 16px;
+    background:rgba(0,0,0,.22);
+    border:1px solid var(--line);
+  }
+  .controls input[type=search]{
+    background:var(--bg-alt);
+    border:1px solid var(--line-light);
+    color:var(--cream);
+    padding:9px 12px;
+    font-size:.9rem;
+    min-width:220px;
+    border-radius:2px;
+  }
+  .controls input[type=search]::placeholder{color:#8A7754;}
+  .chip{
+    border:1px solid var(--line-light);
+    background:transparent;
+    color:#D9C7A0;
+    padding:6px 12px;
+    font-size:.78rem;
+    font-weight:700;
+    cursor:pointer;
+    border-radius:2px;
+  }
+  .chip.active{background:var(--rust);border-color:var(--rust);color:#fff;}
+  .controls .count{margin-left:auto;font-size:.8rem;color:#9C8862;}
+
+  /* ---------- TIER GROUPS ---------- */
+  .tier-group{margin-bottom:30px;}
+  .tier-head{
+    display:flex;align-items:center;gap:12px;
+    margin-bottom:14px;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--line);
+  }
+  .tier-badge{
+    width:44px;height:44px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:"Rye",serif;font-size:1.15rem;
+    color:#fff;
+    border:2px solid rgba(255,255,255,.35);
+    flex:0 0 auto;
+  }
+  .tier-head h3{font-size:1.2rem;color:var(--cream);font-family:"Work Sans",sans-serif;font-weight:700;}
+  .tier-head .tier-desc{font-size:.8rem;color:#9C8862;}
+  .tier-head .tier-num{margin-left:auto;font-size:.76rem;color:#8A7754;}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:16px;}
+
+  .card{
+    background:var(--paper);
+    color:var(--ink);
+    position:relative;
+    box-shadow:var(--shadow);
+    border:1px solid #00000022;
+  }
+  .card::after{
+    content:"";position:absolute;top:6px;right:6px;
+    width:11px;height:11px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#fff8, #8884 60%, transparent 70%),#8B7B52;
+    box-shadow:0 1px 2px rgba(0,0,0,.5);
+  }
+  .card .photo{
+    position:relative;
+    aspect-ratio:1/1;
+    background:
+      repeating-linear-gradient(45deg,#00000008 0 2px,transparent 2px 6px),
+      var(--paper-2);
+    overflow:hidden;
+    border-bottom:1px solid #00000022;
+  }
+  .card .photo img{width:100%;height:100%;object-fit:contain;object-position:center;padding:6px;}
+  .card .photo .noimg{
+    position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;
+    gap:6px;color:var(--ink-soft);font-size:.68rem;text-align:center;padding:10px;
+  }
+  .card .photo.img-fail img{display:none;}
+  .card .photo.img-fail .noimg{display:flex;}
+  .card .tierflag{
+    position:absolute;top:0;left:10px;
+    font-family:"Rye",serif;
+    font-size:.78rem;
+    color:#fff;
+    padding:3px 9px 7px;
+    box-shadow:0 2px 4px rgba(0,0,0,.4);
+    clip-path:polygon(0 0,100% 0,100% 100%,50% 80%,0 100%);
+  }
+  .card .body{padding:10px 12px 12px;}
+  .card h4{font-family:"Work Sans",sans-serif;font-weight:700;font-size:.86rem;line-height:1.2;color:var(--ink);margin-bottom:2px;}
+  .card .abbr{font-size:.7rem;color:var(--ink-soft);font-weight:600;}
+  .card .score{margin-top:6px;font-size:.76rem;color:var(--ink-soft);}
+  .card .score b{color:var(--rust-dark);font-size:.92rem;}
+  .card details{margin-top:8px;font-size:.74rem;}
+  .card summary{cursor:pointer;color:var(--rust-dark);font-weight:700;font-size:.72rem;}
+  .card summary::marker{color:var(--rust-dark);}
+  .card .pros,.card .cons{margin:6px 0 0;padding-left:16px;}
+  .card .pros li{color:#2C5223;margin-bottom:2px;}
+  .card .cons li{color:#7C2020;margin-bottom:2px;}
+  .card .plainnote{margin-top:6px;color:var(--ink-soft);font-style:italic;font-size:.72rem;}
+
+  /* ---------- WEAPONS / ITEMS TABLES ---------- */
+  .subhead{display:flex;align-items:center;gap:10px;margin:34px 0 14px;}
+  .subhead h3{font-size:1.15rem;}
+  .subhead .line{flex:1;height:1px;background:var(--line);}
+
+  .wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin-bottom:8px;}
+  .wcard{
+    display:flex;gap:10px;
+    background:var(--paper);color:var(--ink);
+    padding:10px;box-shadow:var(--shadow);border:1px solid #00000022;
+  }
+  .wcard .thumb{width:58px;height:58px;flex:0 0 auto;background:var(--paper-2);overflow:hidden;border:1px solid #00000022;}
+  .wcard .thumb img{width:100%;height:100%;object-fit:cover;}
+  .wcard .info h5{font-family:"Work Sans",sans-serif;font-weight:700;font-size:.82rem;margin:0 0 2px;}
+  .wcard .info .tag{display:inline-block;font-size:.64rem;font-weight:800;color:#fff;padding:1px 6px;margin-bottom:4px;}
+  .wcard .info p{font-size:.72rem;color:var(--ink-soft);margin:0;}
+
+  /* ---------- MECHANICS / SOURCES ---------- */
+  .flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:18px 0 32px;}
+  .flow .step{background:rgba(0,0,0,.22);border:1px solid var(--line);padding:16px 18px;}
+  .flow .step .n{font-family:"Rye",serif;color:var(--rust);font-size:1.3rem;display:block;margin-bottom:6px;}
+  .flow .step h4{font-size:1rem;color:var(--cream);margin-bottom:6px;font-family:"Work Sans",sans-serif;font-weight:700;}
+  .flow .step p{font-size:.85rem;color:#C9B685;margin:0;}
+
+  table.datatable{width:100%;border-collapse:collapse;margin:10px 0 30px;font-size:.86rem;}
+  table.datatable caption{text-align:left;color:#C9B685;font-size:.8rem;margin-bottom:6px;}
+  table.datatable th,table.datatable td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;color:#E4D6B0;}
+  table.datatable th{color:var(--brass);font-size:.78rem;}
+  table.datatable tr:hover td{background:rgba(255,255,255,.03);}
+
+  .callout{
+    background:rgba(124,26,34,.14);
+    border:1px solid var(--blood);
+    padding:16px 20px;
+    margin:0 0 26px;
+    font-size:.9rem;
+    color:#EAD9C4;
+  }
+  .callout b{color:var(--cream);}
+  .callout.warn{background:rgba(196,146,46,.1);border-color:var(--brass);}
+  .callout.ok{background:rgba(60,90,60,.16);border-color:#4E7A4E;}
+
+  .srclist{list-style:none;margin:0;padding:0;}
+  .srclist li{
+    padding:14px 16px;border:1px solid var(--line);margin-bottom:10px;
+    background:rgba(0,0,0,.18);
+  }
+  .srclist li b{display:block;color:var(--cream);font-size:.95rem;margin-bottom:3px;}
+  .srclist li span{font-size:.8rem;color:#9C8862;}
+  .srclist li a{font-size:.82rem;word-break:break-all;}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:26px 0 40px;
+    color:#8A7754;
+    font-size:.8rem;
+  }
+  footer b{color:#C9B685;}
+
+  @media (max-width:640px){
+    .hero-inner{flex-direction:column;align-items:flex-start;}
+    .hero-facts{width:100%;grid-template-columns:repeat(2,1fr);}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <span class="kicker">Roblox · Bridger: Western · BRIDGER INC.</span>
+      <h1>DOSSIÊ <span>BRIDGER</span><br>WESTERN</h1>
+      <p class="hero-sub">Guia de valores, tier list de Stands, cartas passivas, armas e utilidades — feito com pesquisa cruzada em wikis, guias e listas da comunidade. Sem chute: cada número tem fonte.</p>
+      <p class="hero-note">⚠ Este dossiê é um levantamento independente feito em <b>setembro de 2026</b>. Não é a lista oficial da BRIDGER INC. e os dois vídeos do YouTube e a planilha do Google enviados na conversa <b>não puderam ser abertos</b> pelas minhas ferramentas de busca (ver aba "Fontes" para detalhes) — vale cruzar com eles também.</p>
+    </div>
+    <div class="hero-facts" id="heroFacts">
+      <div><b id="factStands">–</b><span>Stands catalogados</span></div>
+      <div><b id="factCards">–</b><span>Cartas passivas</span></div>
+      <div><b id="factWeapons">–</b><span>Armas</span></div>
+      <div><b id="factItems">–</b><span>Itens/Utilidades</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="wrap">
+    <button data-tab="stands" class="active">Stands</button>
+    <button data-tab="cards">Cartas Passivas</button>
+    <button data-tab="gear">Armas &amp; Utilidades</button>
+    <button data-tab="extras">Skins, Novos &amp; Removidos</button>
+    <button data-tab="howto">Como Funciona</button>
+    <button data-tab="sources">Fontes</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- ================= STANDS ================= -->
+  <section class="panel active" id="panel-stands">
+    <div class="section-head">
+      <h2>Tier List de Stands</h2>
+      <p>Cada Stand traz Tier, Abreviação e a <b>Taxa</b> — uma nota de 0 a 10 que eu calculei a partir do consenso de tier entre as fontes (não é dado de troca extraído de nenhuma lista de valores real; é a nossa conversão numérica do tier pra facilitar comparação rápida — metodologia explicada na aba Fontes).</p>
+    </div>
+    <div class="callout">
+      <b>Exemplo do formato pedido:</b> The World — Taxa de Procura <b>9.9</b> — Abreviação <b>TW</b> — Tier <b>S+</b>. Todas as imagens abaixo vêm hotlinkadas direto da wiki BloxInformer (por isso este arquivo é entregue como HTML pra baixar: a pré-visualização de artifacts do Claude bloqueia imagem externa, mas abrindo o arquivo local elas carregam normalmente).
+    </div>
+    <div class="controls">
+      <input type="search" id="searchStands" placeholder="Buscar Stand (ex: King Crimson)...">
+      <button class="chip active" data-tierfilter="ALL">Todos</button>
+      <span class="count" id="countStands"></span>
+    </div>
+    <div id="standsContainer"></div>
+  </section>
+
+  <!-- ================= CARDS ================= -->
+  <section class="panel" id="panel-cards">
+    <div class="section-head">
+      <h2>Tier List de Cartas Passivas</h2>
+      <p>As Cartas dão buffs passivos permanentes — você equipa 3 por vez, sorteadas na Bruxa do Pântano por 150 Moola (e 50 Moola a cada carta extra). Algumas versões "FAUX" são variantes trocadas que exigem a carta original equipada pra funcionar de verdade.</p>
+    </div>
+    <div class="controls">
+      <input type="search" id="searchCards" placeholder="Buscar carta (ex: Quick Draw)...">
+      <button class="chip active" data-tierfilter="ALL">Todos</button>
+      <span class="count" id="countCards"></span>
+    </div>
+    <div id="cardsContainer"></div>
+  </section>
+
+  <!-- ================= GEAR (WEAPONS + ITEMS) ================= -->
+  <section class="panel" id="panel-gear">
+    <div class="section-head">
+      <h2>Armas &amp; Utilidades</h2>
+      <p>Bônus além do que foi pedido: como Stand reduz seu dano base de arma, a arma e os itens de utilidade que você carrega pesam bastante no build. Dados também cruzados entre BloxInformer, All Things How e Games.gg.</p>
+    </div>
+
+    <div class="subhead"><h3>Armas — Tier List</h3><div class="line"></div></div>
+    <div id="weaponsContainer"></div>
+
+    <div class="subhead"><h3>Utilidades &amp; Itens</h3><div class="line"></div></div>
+    <p style="color:#C9B685;font-size:.86rem;margin-bottom:14px;">Você carrega só 3 itens de utilidade por vez — Faca, Tônico e Poncho formam o trio S-tier recomendado por quase todas as fontes.</p>
+    <div id="itemsContainer"></div>
+  </section>
+
+  <!-- ================= EXTRAS: SKINS / NOVOS / REMOVIDOS ================= -->
+  <section class="panel" id="panel-extras">
+    <div class="section-head">
+      <h2>Skins, Stands Novos &amp; Conteúdo Removido</h2>
+      <p>Essa foi a parte mais dura de verificar. Aqui vai exatamente o que encontrei — e o que <b>não</b> encontrei — em vez de eu inventar número ou item pra preencher espaço.</p>
+    </div>
+
+    <div class="callout warn">
+      <b>Sobre Skins:</b> Vasculhei a wiki (categorias Stands, Cartas, Armas, Itens, Cavalos, Pesca) e guias de terceiros e não achei, até setembro/2026, um sistema de <b>skins cosméticas/recolors</b> documentado para Stands no Bridger: Western. O que existe são evoluções que trocam o Stand por outro (ex: Star Platinum → Star Platinum The World, Gold Experience → Golden Experience Requiem) — mecanicamente são Stands diferentes, não reskins do mesmo Stand. Bridger: Western segue em <b>Early Alpha</b>, então isso pode mudar a qualquer update; se você tiver print de uma skin de verdade em jogo, ela ainda não apareceu nas fontes que consultei.
+    </div>
+
+    <div class="callout warn">
+      <b>Sobre conteúdo removido:</b> Não achei patch notes públicos da BRIDGER INC. nem discussões consistentes de comunidade listando Stands, cartas ou armas que tenham sido <b>removidos/vaultados</b> do jogo. O padrão observado nas atualizações (1.7 → 1.9.5 → 2.1.5 → 2.3) foi de <b>adição</b> de conteúdo (Magician's Red e GER em abril; Weather Report, The Hand, Whitesnake, Stone Free e Soft and Wet entre março e maio; Emperor, White Album, Sticky Fingers, Mr. President e C-Moon em agosto). Se algo foi removido, não está documentado nas fontes públicas que encontrei — reporto isso como está em vez de inventar uma lista.
+    </div>
+
+    <div class="subhead"><h3>Stands sem tier confirmado / adições recentes</h3><div class="line"></div></div>
+    <p style="color:#C9B685;font-size:.86rem;margin-bottom:14px;">Esses Stands existem confirmadamente no jogo (aparecem no catálogo oficial da wiki), mas nenhuma das fontes que cruzei já publicou um tier de combate pra eles — inclusive alguns nem têm imagem publicada ainda. Vários são referências diretas a partes específicas de JoJo's Bizarre Adventure, o que bate com o tema Velho-Oeste (Parte 7, Steel Ball Run, se passa nos EUA do século 19).</p>
+    <div class="grid" id="novosContainer"></div>
+  </section>
+
+  <!-- ================= HOW TO ================= -->
+  <section class="panel" id="panel-howto">
+    <div class="section-head">
+      <h2>Como Funciona o Jogo</h2>
+      <p>Mecânicas confirmadas nas fontes, pra você entender de onde vêm os Stands e Cartas do dossiê.</p>
+    </div>
+
+    <div class="subhead"><h3>Como conseguir um Stand</h3><div class="line"></div></div>
+    <div class="flow">
+      <div class="step"><span class="n">🎣</span><h4>Pesca (seguro, lento)</h4><p>Compre vara + isca por 150 Moola no NPC de pesca. Cada pescaria tem <b>0,5%</b> de chance de dar um Fragmento/Estilhaço de Flecha. Ele não pode ser guardado no banco — se você morrer ou sair do servidor, perde o item.</p></div>
+      <div class="step"><span class="n">💀</span><h4>Parte de Cadáver (rápido, arriscado)</h4><p>A cada ~30s há chance de spawnar no mapa (1 em 150 com 3 jogadores no servidor, subindo até 1 em 40 com servidor lotado/25 jogadores). Aparece com um feixe de luz amarelo e um aviso pra todo mundo — quem pegar precisa sobreviver até absorver, enquanto outros tentam roubar/matar.</p></div>
+      <div class="step"><span class="n">📜</span><h4>Quests específicas</h4><p>Alguns Stands (D4C é o caso mais citado) não saem de pesca nem de Parte de Cadáver — só via questline própria.</p></div>
+    </div>
+
+    <div class="subhead"><h3>Reroll de Stand &amp; mecânica de idade</h3><div class="line"></div></div>
+    <div class="flow">
+      <div class="step"><span class="n">🌿</span><h4>Erva Dogbane</h4><p>Drop de 4% em baús pós-encontro. Uma unidade reduz a idade do personagem em 20 anos, ou pode ser trocada por 2.500 Moola.</p></div>
+      <div class="step"><span class="n">🧙</span><h4>Cabana da Bruxa (Pântano)</h4><p>Leve a Erva Dogbane até a Bruxa e peça pra "limpar" seu Stand atual. Depois disso, você precisa pescar/achar outra Parte de Cadáver pra sortear um novo.</p></div>
+      <div class="step"><span class="n">⏳</span><h4>Envelhecimento</h4><p>Seu personagem envelhece a cada morte. Aos 75+ anos você perde a capacidade de correr; aos 85+ existe chance de "wipe" instantâneo (infarto). A Erva Dogbane é o único jeito confirmado de reverter isso.</p></div>
+    </div>
+
+    <div class="subhead"><h3>Alinhamento &amp; progressão</h3><div class="line"></div></div>
+    <p style="color:#C9B685;font-size:.9rem;max-width:760px;">Você escolhe entre dois alinhamentos — <b>Outlaw</b> (fora-da-lei) e <b>Inlaw</b> — cada um com zona inicial e progressão próprias. As Cartas Passivas são sorteadas na Cabana da Bruxa do Pântano por 150 Moola (1ª carta) + 50 Moola por carta extra revelada na mesma visita.</p>
+
+    <div class="subhead"><h3>Controles</h3><div class="line"></div></div>
+    <table class="datatable">
+      <thead><tr><th>Ação</th><th>Tecla</th></tr></thead>
+      <tbody>
+        <tr><td>Movimento</td><td>W A S D</td></tr>
+        <tr><td>Correr</td><td>W + W (duplo toque)</td></tr>
+        <tr><td>Atirar</td><td>M1</td></tr>
+        <tr><td>Mirar</td><td>M2</td></tr>
+        <tr><td>Dash rápido</td><td>Q</td></tr>
+        <tr><td>Ocular Prowess</td><td>X</td></tr>
+        <tr><td>Ataque corpo a corpo (arma)</td><td>G</td></tr>
+        <tr><td>Soco/Punhos</td><td>C</td></tr>
+        <tr><td>Bloquear</td><td>F</td></tr>
+        <tr><td>Menu de status</td><td>M</td></tr>
+        <tr><td>Chamar cavalo</td><td>H</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ================= SOURCES ================= -->
+  <section class="panel" id="panel-sources">
+    <div class="section-head">
+      <h2>Fontes &amp; Metodologia</h2>
+      <p>Transparência total: de onde veio cada dado, o que eu não consegui verificar, e como a "Taxa" foi calculada.</p>
+    </div>
+
+    <div class="callout">
+      <b>Como calculei a "Taxa de Procura":</b> não existe uma lista oficial de valores de troca publicada pela BRIDGER INC., e a planilha do Google enviada na conversa não pôde ser aberta pelas minhas ferramentas (link de edição privado, sem indexação pública). Então, em vez de inventar decimais, converti o <b>tier de consenso de combate</b> (S+ até C-) das fontes abaixo em uma nota de 0–10, mantendo a ordem relativa que as próprias fontes descrevem entre si dentro de cada tier. É uma régua de força em combate, não um valor de troca real — trate como ponto de partida, não como preço fechado.
+    </div>
+    <div class="callout ok">
+      <b>O que eu NÃO consegui acessar:</b><br>
+      • Os dois links do YouTube enviados na conversa — minha ferramenta de busca de página recebeu erro 429 (limite de acesso) nas duas tentativas.<br>
+      • A planilha do Google Sheets enviada — é um link de edição (/edit) não indexado publicamente, e minha ferramenta só abre páginas que já apareceram em busca ou fetch anteriores.<br>
+      Recomendo fortemente cruzar este dossiê com esses dois vídeos e a planilha — eles provavelmente têm dados de trade mais atualizados/específicos da comunidade do que eu consigo puxar por busca aberta.
+    </div>
+
+    <ul class="srclist" id="sourcesList"></ul>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p><b>Bridger: Western</b> é desenvolvido pela BRIDGER INC. no Roblox. Este dossiê é um material de fã, não afiliado à BRIDGER INC. nem à Roblox Corporation. Dados levantados em setembro de 2026, cobrindo conteúdo até a Update 2.3 — o jogo está em Early Alpha e muda rápido, então confira a data de cada fonte antes de levar um número ao pé da letra.</p>
+</footer>
+
+<script>
+/* =========================================================
+   DADOS — Stands, Cartas, Armas, Itens
+   Fontes na aba "Fontes". Taxa = nota 0-10 derivada do tier.
+   ========================================================= */
+
+var TIER_COLORS = {
+  "S+":"#7C1A22","S":"#96271F","S-":"#A8391C",
+  "A+":"#AE461B","A":"#BD5F19","A-":"#C07817",
+  "B+":"#B08A1E","B":"#9E9124","B-":"#7C8F3A",
+  "C+":"#5A7A5E","C":"#4A6668","C-":"#3D5457"
+};
+var TIER_ORDER = ["S+","S","S-","A+","A","A-","B+","B","B-","C+","C","C-"];
+var TIER_DESC = {
+  "S+":"O topo absoluto — praticamente sem contra-argumento.",
+  "S":"Nível de campeonato, cada um com uma ressalva pequena.",
+  "S-":"Ainda S-tier, mas fica atrás dos dois de cima.",
+  "A+":"Muito forte, exige mais leitura de jogo pra render o máximo.",
+  "A":"Sólido em qualquer build, sem ser dominante sozinho.",
+  "A-":"Bom, mas com uma limitação clara de kit.",
+  "B+":"Competente, brilha em cenário certo.",
+  "B":"Mediano — funciona, sem se destacar.",
+  "B-":"Fraquezas relevantes, precisa de arma forte junto.",
+  "C+":"Abaixo da média do elenco atual.",
+  "C":"Pouco impacto em combate real.",
+  "C-":"O mais fraco do levantamento."
+};
+
+var STANDS = [
+{name:"The World",abbr:"TW",tier:"S+",score:9.9,kind:"Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/The-World-Real-One.png",
+ pros:["Parada de tempo mais longa do jogo","Extremamente móvel","Dano alto em geral"],cons:["Tempo de canalização maior que o da SPTW"]},
+{name:"The World Alternate Universe",abbr:"TWAU",tier:"S+",score:9.9,kind:"Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/The-World-AU.png",
+ pros:["Parada de tempo dupla — raridade no jogo","Dano altíssimo"],cons:["Windup de parada de tempo mais longo"]},
+{name:"Star Platinum The World",abbr:"SPTW",tier:"S+",score:9.8,kind:"Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/Star-Platinum-The-World.png",
+ pros:["Parada de tempo com o menor windup do jogo","Dano geral muito alto"],cons:["Duração da parada é menor que a do TW"]},
+{name:"Golden Experience Requiem",abbr:"GER",tier:"S",score:9.5,kind:"Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/Golden-Experience-Requiem.png",
+ pros:["Kit mais versátil do jogo","Melhores curas do elenco","\"Return to Zero\" é tido como o melhor golpe único do jogo","Dano bom em alvo único e em área"],cons:[]},
+{name:"King Crimson",abbr:"KC",tier:"S",score:9.3,kind:"Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/King-Crimson.png",
+ pros:["Único Stand com counter direto pra parada de tempo (Apagar o Tempo)","Ótima mobilidade","Bom dano de rajada após o counter"],cons:[]},
+{name:"D4C",abbr:"D4C",tier:"S",score:9.2,kind:"Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/d4c.png",
+ pros:["\"Dimension Hop\" nega dano e cria clones","Stand muito móvel"],cons:["Só se consegue via questline específica, não por pesca/Parte de Cadáver"]},
+{name:"Weather Report",abbr:"WR",tier:"S",score:9.1,kind:"Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/05/weather-report-stands-bridger-western.png",
+ pros:["Modo Heavy Weather dá resistência a dano e mobilidade","Torrential Rain controla projéteis"],cons:["Precisa montar o modo antes de compensar — mais lento que os time-stops puros"]},
+{name:"Purple Haze",abbr:"PH",tier:"S-",score:8.8,kind:"Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/Purple-Haze.png",
+ pros:["Poison Cloud: um dos melhores efeitos de dano contínuo do jogo","Dano geral alto"],cons:[]},
+{name:"The Hand",abbr:"TH",tier:"A+",score:8.5,kind:"Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/05/the-hand-stand-bridger-western.png",
+ pros:["Dano de rajada alto","Utilidade de \"apagar\" espaço com boa pressão de execução"],cons:["Perde os ataques básicos M1","Muito dependente de cooldown"]},
+{name:"Magician's Red",abbr:"MR",tier:"A+",score:8.3,kind:"Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/Magicians-Red-briger-Western.png",
+ pros:["Dano contínuo por queimadura","Forte no médio alcance com boa movimentação"],cons:[]},
+{name:"Tusk",abbr:"TSK",tier:"A+",score:8.1,kind:"Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/Tusk.png",
+ pros:["Um dos Stands mais ofensivos do jogo","Vários ataques poderosos à distância"],cons:["Precisa de cavalo pra atingir o potencial máximo"]},
+{name:"Mandom",abbr:"MDM",tier:"A",score:7.8,kind:"Não Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/Mandom.png",
+ pros:["Rebobinar o tempo: uma das melhores defesas do jogo"],cons:["Só tem essa habilidade — depende de uma arma forte no combo"]},
+{name:"Star Platinum",abbr:"SP",tier:"A",score:7.6,kind:"Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/Star-Platinum.png",
+ pros:["Dano geral sólido no curto alcance"],cons:["Usado principalmente como base pra evoluir pra SPTW"]},
+{name:"Killer Queen",abbr:"KQ",tier:"A",score:7.5,kind:"Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/Killer-Queen-Tier-Maker.png",
+ pros:["Ataques de bomba com dano alto"],cons:["Alcance curto"]},
+{name:"Silver Chariot",abbr:"SC",tier:"A",score:7.4,kind:"Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/Silver-Chariot.png",
+ pros:["Alto potencial de combo"],cons:["Combos difíceis de dominar","Alcance curto"]},
+{name:"Hierophant Green",abbr:"HG",tier:"A",score:7.3,kind:"Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/Hierophant-Green.png",
+ pros:["Fios de 20 metros que, bem usados, quase eliminam qualquer oponente","Dano alto"],cons:[]},
+{name:"Hey Ya",abbr:"HY",tier:"A-",score:7.0,kind:"Não Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/Hey-Ya.png",
+ pros:["Tida como a melhor passiva do jogo (efeitos aleatórios úteis)"],cons:["Falta opção de dano concreto"]},
+{name:"Hermit Purple",abbr:"HP",tier:"B+",score:6.3,kind:"Não Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/Hermit-Purple.png",
+ pros:["Fácil de usar","Golpes com pouco tempo de preparo","Ótimo pra cobrir distância com gancho"],cons:["Estilo de jogo fácil de counterar"]},
+{name:"Tubular Bells",abbr:"TB",tier:"B",score:5.8,kind:"Não Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/Tubular-Bells.png",
+ pros:["Cães com perseguição automática garantem bom dano"],cons:["Sem opção defensiva","Preparo longo deixa vulnerável a rush"]},
+{name:"Gold Experience",abbr:"GE",tier:"B",score:5.6,kind:"Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/Golden-Wind.png",
+ pros:["Boas curas","Barrage ofensivo sólido"],cons:["Plano de jogo simples demais"]},
+{name:"Crazy Diamond",abbr:"CD",tier:"B",score:5.5,kind:"Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/Crazy-Diamond.png",
+ pros:["Boas opções corpo a corpo e à distância","Pode curar aliados"],cons:[]},
+{name:"20th Century Boy",abbr:"20CB",tier:"C",score:3.8,kind:"Não Humanoide",img:"https://bloxinformer.com/wp-content/uploads/2026/04/20th-Century-Boy.png",
+ pros:["Não gasta stamina pra invocar"],cons:["Só 2 habilidades: uma te imobiliza, a outra é fácil de desviar"]}
+];
+
+var NOVOS_STANDS = [
+{name:"Stone Free",abbr:"SF",img:"https://bloxinformer.com/wp-content/uploads/2026/03/Stone-Free-Stand-Bridger-Western.png",note:"Stand de Johnny Joestar (JoJo Parte 7 — Steel Ball Run, a arca ambientada no Velho Oeste). Adicionado por volta de março/2026. Tier de combate não confirmado nas fontes pesquisadas."},
+{name:"Soft and Wet",abbr:"SAW",img:"https://bloxinformer.com/wp-content/uploads/2026/05/soft-and-wet-bridger-western.png",note:"Stand de Josuke Higashikata (JoJo Parte 8). Adicionado por volta de maio/2026. Tier não confirmado."},
+{name:"Whitesnake",abbr:"WS",img:"https://bloxinformer.com/wp-content/uploads/2026/03/White-Snake-Stand-in-Bridger-Western.png",note:"Stand de Enrico Pucci (JoJo Parte 6). Presente no catálogo desde março/2026. Tier não confirmado."},
+{name:"Khnum",abbr:"KHN",img:"",note:"Aparece listado no catálogo oficial da wiki, mas sem imagem publicada e sem tier nas fontes que encontrei."},
+{name:"Oh Lonesome Me",abbr:"OLM",img:"",note:"Aparece listado no catálogo oficial da wiki, mas sem imagem publicada e sem tier nas fontes que encontrei."},
+{name:"Emperor",abbr:"EMP",img:"",note:"Um dos 5 Stands da Update 2.3 (agosto/2026). Segundo a Games.gg, nenhum dos 5 novos supera o S-tier atual — mas nenhum tier individual foi publicado ainda."},
+{name:"White Album",abbr:"WA",img:"",note:"Stand da Update 2.3 (agosto/2026). Tier ainda não publicado nas fontes pesquisadas."},
+{name:"Sticky Fingers",abbr:"STF",img:"",note:"Stand de Bruno Bucciarati (JoJo Parte 5), da Update 2.3 (agosto/2026). Tier ainda não publicado."},
+{name:"Mr. President",abbr:"MRP",img:"",note:"Stand da Update 2.3 (agosto/2026). Tier ainda não publicado nas fontes pesquisadas."},
+{name:"C-Moon",abbr:"CM",img:"",note:"Stand de Funny Valentine (JoJo Parte 7 — Steel Ball Run), da Update 2.3 (agosto/2026). Tier ainda não publicado."}
+];
+
+var CARDS = [
+{name:"Sturdy",tier:"S",score:9.4,img:"https://bloxinformer.com/wp-content/uploads/2026/03/sturdy-cards-bridger-western.png",desc:"+15% de vida máxima; passa a levar 3 acertos pra te derrubar."},
+{name:"Lung-Shot",tier:"S",score:9.3,img:"https://bloxinformer.com/wp-content/uploads/2026/03/lungshot-card-brdger-western-1.png",desc:"Atirar em inimigos drena Stamina e Vida ao mesmo tempo."},
+{name:"Time Heals All Wounds",tier:"S",score:9.2,img:"https://bloxinformer.com/wp-content/uploads/2026/03/time-heals-all-wounds-cards-bridger-western.png",desc:"Regeneração de vida passiva."},
+{name:"Show Me A Good Time",tier:"S",score:9.1,img:"https://bloxinformer.com/wp-content/uploads/2026/03/show-me-good-time-cards-bridger-western.png",desc:"Ganha a habilidade de aparar balas (parry) + 10% de dano em armas brancas."},
+{name:"Snake Eater",tier:"S",score:9.0,img:"https://bloxinformer.com/wp-content/uploads/2026/03/snake-eater-cards-briger-western.png",desc:"Parado, você fica invisível e regenera Stamina mais rápido."},
+{name:"Executioner",tier:"A",score:8.4,img:"https://bloxinformer.com/wp-content/uploads/2026/03/executioner-cards-bridger-western.png",desc:"Acima de 20 de dano de headshot, em vez de derrubar/matar, você decapita."},
+{name:"Evil Eye",tier:"A",score:8.2,img:"https://bloxinformer.com/wp-content/uploads/2026/03/evil-eye-cards-bridger-western.png",desc:"+50% de duração e cooldown do Ocular Prowess."},
+{name:"Secret Technique",tier:"A",score:8.1,img:"https://bloxinformer.com/wp-content/uploads/2026/03/secret-technique-cards-bridger-western.png",desc:"Ativa automaticamente ao cair abaixo de 40% de vida."},
+{name:"Archers Child",tier:"A",score:8.0,img:"https://bloxinformer.com/wp-content/uploads/2026/03/archers-child-cards-bridger-western.png",desc:"+1,5x velocidade de saque do Arco e 2x na cadência de tiro."},
+{name:"Veteran",tier:"A",score:7.9,img:"https://bloxinformer.com/wp-content/uploads/2026/03/veteran-cards-bridger-western.png",desc:"Recarregar um revólver não esvazia mais o tambor inteiro."},
+{name:"FAUX: High Noon",tier:"A",score:7.8,img:"https://bloxinformer.com/wp-content/uploads/2026/03/faux-high-noon-cards-bridger-wester.png",desc:"-10% de vida máxima, mas dá autoaim durante o Ocular Prowess se você também tiver High Noon equipada."},
+{name:"Can't Lay Off The Tonic",tier:"A",score:7.7,img:"https://bloxinformer.com/wp-content/uploads/2026/03/cant-lay-off-the-tonic-cards-bridger-western.png",desc:"Seu dano aumenta conforme a quantidade de Tônicos consumidos."},
+{name:"Too Tired To Fall",tier:"A",score:7.6,img:"https://bloxinformer.com/wp-content/uploads/2026/03/too-tier-to-fall-cards-bridger-western.png",desc:"Recebe menos dano ao cair abaixo de 50% de Stamina."},
+{name:"Quick Draw",tier:"A",score:7.5,img:"https://bloxinformer.com/wp-content/uploads/2026/03/quick-draw-cards-bridger-western.png",desc:"Entra em estado de saque rápido ao trocar pra arma primária."},
+{name:"A True Cowboy",tier:"B",score:6.4,img:"https://bloxinformer.com/wp-content/uploads/2026/03/a-true-cowboy-bridger-western.png",desc:"+17% de dano a cavalo e mira automática nos arremessos de laço."},
+{name:"Desperado",tier:"B",score:6.2,img:"https://bloxinformer.com/wp-content/uploads/2026/03/desperado-cards-bridger-western.png",desc:"Aumenta o dano de arma quando você está com vida baixa."},
+{name:"Silver Prodigy",tier:"B",score:6.1,img:"https://bloxinformer.com/wp-content/uploads/2026/03/silver-prodigy-cards-bridger-western.png",desc:"Dano aumentado com balas de prata e adagas de prata."},
+{name:"Total Checkmate",tier:"B",score:6.0,img:"https://bloxinformer.com/wp-content/uploads/2026/03/total-checkmate-cards-bridger-wesern.png",desc:"Facas passam a poder ser arremessadas em rajada."},
+{name:"Winged Man",tier:"C",score:4.6,img:"https://bloxinformer.com/wp-content/uploads/2026/03/winged-man-cards-bridger-western.png",desc:"+25% de dano enquanto estiver no ar."},
+{name:"Belmont Family Crest",tier:"C",score:4.5,img:"https://bloxinformer.com/wp-content/uploads/2026/03/belmont-family-crest-bridger-western.png",desc:"+25% de dano contra vampiros, mas +25% de dano recebido de humanos."},
+{name:"Silver Wireset",tier:"C",score:4.4,img:"https://bloxinformer.com/wp-content/uploads/2026/03/silver-wireset-cards-bridger-western.png",desc:"Converte o dano do Steel Wireset pra prata, aplicando queimadura em vampiros."},
+{name:"Poltergeist",tier:"C",score:4.3,img:"https://bloxinformer.com/wp-content/uploads/2026/03/poltergeist-cards-bridger-western.png",desc:"Fica invisível ao rolar (combat roll), mas o custo de Stamina sobe 80%."},
+{name:"Flesh Automaton",tier:"C",score:4.2,img:"https://bloxinformer.com/wp-content/uploads/2026/03/flesh-automaton-cards-bridger-western.png",desc:"Vira um Autômato de Carne e explode ao receber dano letal."},
+{name:"Boy With Fists",tier:"C",score:4.1,img:"https://bloxinformer.com/wp-content/uploads/2026/03/boy-with-fists-bridger-western.png",desc:"+20% de dano corpo a corpo, mas -35% de precisão de arma."},
+{name:"High Noon",tier:"C",score:4.0,img:"https://bloxinformer.com/wp-content/uploads/2026/03/high-noon-cards-bridger-western.png",desc:"Autoaim quando o relógio bate meio-dia no jogo, mas -10 de vida máxima."},
+{name:"Seasoned Hunter",tier:"C",score:3.9,img:"https://bloxinformer.com/wp-content/uploads/2026/03/seasoned-hunter-cards-bridger-western.png",desc:"Spawna com uma Estaca e vampiros drenam menos sangue de você com vida baixa."},
+{name:"Sneaky Lowlife",tier:"C",score:3.8,img:"https://bloxinformer.com/wp-content/uploads/2026/03/sneaky-lowlife-cards-bridger-western.png",desc:"Quem usa Ocular Prowess não consegue mais te destacar."},
+{name:"Small Cuts",tier:"C",score:3.7,img:"https://bloxinformer.com/wp-content/uploads/2026/03/small-cuts-cards-bridger-western.png",desc:"Ao levar tiros rápidos seguidos, recebe 10% mais dano, mas cada tiro causa menos dano individual."},
+{name:"Twenty Meter Radius Steel",tier:"C",score:3.6,img:"https://bloxinformer.com/wp-content/uploads/2026/03/twenty-meter-radius-steel-cards-bridger-western.png",desc:"Usa todos os fios do Steel Wireset de uma vez, criando uma teia ao seu redor."}
+];
+
+var CARDS_UNRATED = [
+{name:"Coin Roller",img:"https://bloxinformer.com/wp-content/uploads/2026/03/coin-roller-cards-bridger-western.png"},
+{name:"Demolitions Expert",img:"https://bloxinformer.com/wp-content/uploads/2026/03/demolitions-expert-cards-bridger-western.png"},
+{name:"Danger Sense",img:"https://bloxinformer.com/wp-content/uploads/2026/03/danger-sense-cards-bridger-western.png"},
+{name:"Tonicmaster",img:"https://bloxinformer.com/wp-content/uploads/2026/03/tonicmaster-cards-bridger-western.png"},
+{name:"Soul Cleaver",img:"https://bloxinformer.com/wp-content/uploads/2026/03/soul-clever-card-bridger-western.png"},
+{name:"Gunslingers Grit",img:"https://bloxinformer.com/wp-content/uploads/2026/04/gunsligers-grit-card-bridger-western.png"},
+{name:"Wind God",img:"https://bloxinformer.com/wp-content/uploads/2026/04/wind-god-cards-bridger-western.png"},
+{name:"Strong Presence",img:"https://bloxinformer.com/wp-content/uploads/2026/04/strong-presence-cards-bridger-western.png"},
+{name:"Nocturnal",img:"https://bloxinformer.com/wp-content/uploads/2026/04/noctrurnal-cards-bridger-western.png"},
+{name:"FAUX: Nocturnal",img:"https://bloxinformer.com/wp-content/uploads/2026/04/faux-nocturnal-cards-bridger-western.png"},
+{name:"Hyperventilator",img:"https://bloxinformer.com/wp-content/uploads/2026/04/hyperventilator-cards-bridger-western.png"},
+{name:"Narcoleptic",img:"https://bloxinformer.com/wp-content/uploads/2026/04/narcoleptic-cards-bridger-western.png"},
+{name:"Perfectionist",img:"https://bloxinformer.com/wp-content/uploads/2026/04/perfectionist-cards-bridger-western.png"},
+{name:"Violent Tendencies",img:"https://bloxinformer.com/wp-content/uploads/2026/05/violent-tendencies-cards-bridger-western.png"},
+{name:"FAUX Violent Tendencies",img:"https://bloxinformer.com/wp-content/uploads/2026/05/faux-violent-tendencies-cards-bridger-western.png"},
+{name:"Main Character Syndrome",img:"https://bloxinformer.com/wp-content/uploads/2026/05/main-charater-card-bridger-western.png"},
+{name:"FAUX Main Character Syndrome",img:"https://bloxinformer.com/wp-content/uploads/2026/05/faux-main-character-cards-bridger-western.png"},
+{name:"Focused Jockey",img:"https://bloxinformer.com/wp-content/uploads/2026/05/focused-jockey-card-bridger-western.png"},
+{name:"Headhunter",img:"https://bloxinformer.com/wp-content/uploads/2026/05/headhunter-card-bridger-wesern.png"},
+{name:"Light Sleeper",img:"https://bloxinformer.com/wp-content/uploads/2026/05/light-sleeper-cards-bridger-western.png"}
+];
+
+var WEAPONS = [
+{name:"Tommy Gun",tier:"S",img:"https://bloxinformer.com/wp-content/uploads/2026/03/tommy-gun-weapon-bridger-western.jpg",desc:"Uma das armas de disparo mais rápido do jogo. Letal a curta distância."},
+{name:"Mare's Leg",tier:"S",img:"https://bloxinformer.com/wp-content/uploads/2026/03/mares-leg-weapon-bridger-western.jpg",desc:"Melhor rifle de alavanca pra médio alcance. Também funciona como Stand."},
+{name:"Maverick 88",tier:"S",img:"https://bloxinformer.com/wp-content/uploads/2026/03/maverick-88-weapon-bridger-western.jpg",desc:"Espalhamento de bala quase nulo — forte no curto e médio alcance."},
+{name:"Malcom .70",tier:"S",img:"https://bloxinformer.com/wp-content/uploads/2026/03/malcom-70-weapon-bridger-western.jpg",desc:"A escolha do sniper — imbatível em longo alcance."},
+{name:"Winchester Repeater",tier:"A",img:"https://bloxinformer.com/wp-content/uploads/2026/03/winchester-repeater-weapon-bridger-western.jpg",desc:"Clássica, forte em médio e longo alcance."},
+{name:"Colt Ocelot",tier:"A",img:"https://bloxinformer.com/wp-content/uploads/2026/03/colt-ocelot-weapon-bridger-western.jpg",desc:"Consegue ricochetear balas — leva um tempo pra dominar."},
+{name:"Sabre",tier:"A",img:"https://bloxinformer.com/wp-content/uploads/2026/03/sabre-weapon-bridger-western.jpg",desc:"Arma branca que consegue aparar (parry) balas depois de treino."},
+{name:"Double Barrel Shotgun",tier:"A",img:"https://bloxinformer.com/wp-content/uploads/2026/03/db-shotgun-weapon-bridger-western.jpg",desc:"Provavelmente a melhor arma de curtíssimo alcance — só 2 tiros, então conte com eles."},
+{name:"Bow",tier:"B",img:"https://bloxinformer.com/wp-content/uploads/2026/03/bow-weapon-bridger-western-e1774870818928.jpg",desc:"Dano baixo, mas dá pra prender dinamite na flecha."},
+{name:"Dual Derringers",tier:"B",img:"https://bloxinformer.com/wp-content/uploads/2026/03/dual-derringers-weapon-bridger-western.jpg",desc:"Cadência alta e recarga rápida, boas pra pressão constante."},
+{name:"Whitney Dragoon",tier:"B",img:"https://bloxinformer.com/wp-content/uploads/2026/03/whitney-dragoon-weapon-bridger-western.jpg",desc:"Dano por tiro e precisão altos, mas recarga demorada."},
+{name:"Mauser",tier:"B",img:"https://bloxinformer.com/wp-content/uploads/2026/03/mauser-weapon-bridger-western.jpg",desc:"Única pistola alimentada por pente — baixo recuo pra tiros rápidos e precisos."},
+{name:"Schofield 6",tier:"C",img:"https://bloxinformer.com/wp-content/uploads/2026/03/schofield-weapon-bridger-western.jpg",desc:"Simples e decente — troque assim que puder."},
+{name:"Taurus 357",tier:"C",img:"https://bloxinformer.com/wp-content/uploads/2026/03/taurus-357-weapon-bridger-western.jpg",desc:"A opção mais barata do jogo — confiável pra iniciante."}
+];
+
+var ITEMS = [
+{name:"Faca (Knives)",tier:"S",img:"https://bloxinformer.com/wp-content/uploads/2026/03/knives-items-bridger-western.png",desc:"Usada como arma de arremesso."},
+{name:"Tônico (Tonic)",tier:"S",img:"https://bloxinformer.com/wp-content/uploads/2026/03/tonic-items-bridger-western.png",desc:"Cura ao ser consumido."},
+{name:"Poncho",tier:"S",img:"https://bloxinformer.com/wp-content/uploads/2026/03/ponchos-items-bridger-western.png",desc:"Reduz o dano recebido."},
+{name:"Dinamite",tier:"A",img:"https://bloxinformer.com/wp-content/uploads/2026/03/dynamite-items-bridger-western.png",desc:"Arremessável, explode após um tempinho."},
+{name:"Chapéu de Cowboy",tier:"A",img:"https://bloxinformer.com/wp-content/uploads/2026/03/cowboy-hat-items-bridger-western.png",desc:"Protege de 1 headshot."},
+{name:"Laço (Lasso)",tier:"B",img:"https://bloxinformer.com/wp-content/uploads/2026/03/lasso-items-bridger-western.png",desc:"Usado pra capturar e amarrar inimigos."},
+{name:"Molotov",tier:"B",img:"https://bloxinformer.com/wp-content/uploads/2026/03/molotov-items-bridger-western.png",desc:"Joga no chão e incendeia a área."},
+{name:"Moeda (Coin)",tier:"B",img:"https://bloxinformer.com/wp-content/uploads/2026/03/coin-items-bridger-western.png",desc:"Joga pro alto; quando brilha, arremesse num inimigo próximo pra explodir."},
+{name:"Fio de Aço (Steel Wireset)",tier:"C",img:"https://bloxinformer.com/wp-content/uploads/2026/03/steel-wires-items-bridger-western.png",desc:"Arma-se entre dois prédios como armadilha; aplica queimadura de prata em vampiros."},
+{name:"Bomba de Fumaça",tier:"C",img:"https://bloxinformer.com/wp-content/uploads/2026/03/smoke-bomb-items-bridger-western.png",desc:"Cria uma cortina de fumaça ao ser arremessada."},
+{name:"Caixa de Munição",tier:null,img:"https://bloxinformer.com/wp-content/uploads/2026/03/ammo-box-items-bridger-western.png",desc:"Dá munição conforme sua arma (Revólveres +30, Espingardas +10)."},
+{name:"Pacote de Flechas",tier:null,img:"https://bloxinformer.com/wp-content/uploads/2026/03/arrow-packs-items-bridger-western.png",desc:"Dá 5 flechas."},
+{name:"Adaga de Prata",tier:null,img:"https://bloxinformer.com/wp-content/uploads/2026/03/silver-dagger-items-bridger-western.png",desc:"Drop de baú — a arma definitiva contra vampiros."},
+{name:"Estaca de Madeira",tier:null,img:"https://bloxinformer.com/wp-content/uploads/2026/03/wooden-stake-items-bridger-western.png",desc:"Usada pra combater vampiros."},
+{name:"Erva Dogbane",tier:null,img:"https://bloxinformer.com/wp-content/uploads/2026/03/dogbane-herb-items-bridger-western.png",desc:"Reduz a idade do personagem em 20 anos ao consumir."},
+{name:"Lanterna",tier:null,img:"https://bloxinformer.com/wp-content/uploads/2026/03/lantern-items-bridger-western.png",desc:"Ilumina uma pequena área ao redor do personagem."}
+];
+
+var SOURCES = [
+{name:"BloxInformer — Bridger: Western Wiki",url:"https://bloxinformer.com/wikis/bridger-western/",desc:"Wiki dedicada (rede Gamurs). Principal fonte de imagens e das tier lists de Stands, Cartas e Armas usadas aqui, além da lista de Itens."},
+{name:"All Things How — Bridger Western Tier List",url:"https://allthings.how/bridger-western-tier-list-every-stand-weapon-utility-and-card-ranked/",desc:"Cobre Stands, Armas, Utilidades e Cartas, além do passo a passo de obtenção de Stand, reroll e mecânica de idade."},
+{name:"Games.gg — Bridger Western Tier List (Update 2.3)",url:"https://games.gg/roblox/guides/bridger-western-tier-list/",desc:"Versão mais recente encontrada (atualizada 26/ago/2026); confirma Weather Report e The Hand no topo e lista os 5 Stands + 3 Cartas da Update 2.3."},
+{name:"Destructoid — Bridger Western Stand Tier List",url:"https://www.destructoid.com/bridger-western-stand-tier-list/",desc:"Tier list alternativa, útil pra cruzar King Crimson, GER e D4C."},
+{name:"Gamezebo — Bridger Western Stands Tier List",url:"https://www.gamezebo.com/walkthroughs/bridger-western-stands-tier-list/",desc:"Traz os comandos de golpe (E/R/T/G/V) de vários Stands — não usado pro tier final, mas cruzado como checagem."},
+{name:"Insider Gaming Brasil — Stands em Bridger Western",url:"https://insider-gaming.com/br/stands-em-bridger-western-como-obter-e-lista-completa-no-roblox/",desc:"Guia em português com a lista de Stands e os dois métodos de obtenção (pesca e Parte de Cadáver), citando a Deltia's Gaming como fonte original do tier."},
+{name:"RoWatcher — bridger: WESTERN",url:"https://rowatcher.com/games/8524572339",desc:"Estatísticas do jogo no Roblox (jogadores simultâneos, visitas, status Early Alpha) usadas pra contextualizar o jogo."}
+];
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+function scoreLabel(t){return TIER_DESC[t]||"";}
+
+function buildCardHTML(item){
+  var color = TIER_COLORS[item.tier] || "#5A4A32";
+  var imgBlock = item.img
+    ? '<img src="'+item.img+'" alt="'+item.name+'" loading="lazy" onerror="this.parentElement.classList.add(\'img-fail\')">'
+    : '';
+  var prosHtml = (item.pros && item.pros.length) ? '<ul class="pros">'+item.pros.map(function(p){return '<li>+ '+p+'</li>';}).join('')+'</ul>' : '';
+  var consHtml = (item.cons && item.cons.length) ? '<ul class="cons">'+item.cons.map(function(c){return '<li>– '+c+'</li>';}).join('')+'</ul>' : '';
+  var detailsInner = item.desc ? '<p class="plainnote">'+item.desc+'</p>' : (prosHtml+consHtml);
+  return ''+
+  '<article class="card" data-tier="'+item.tier+'" data-name="'+item.name.toLowerCase()+'">'+
+    '<div class="photo">'+
+      imgBlock+
+      '<div class="noimg">🖼<br>sem imagem<br>na fonte</div>'+
+      '<span class="tierflag" style="background:'+color+'">'+item.tier+'</span>'+
+    '</div>'+
+    '<div class="body">'+
+      '<h4>'+item.name+'</h4>'+
+      (item.abbr ? '<div class="abbr">Abrev.: '+item.abbr+(item.kind?(' · '+item.kind):'')+'</div>' : '')+
+      '<div class="score">Taxa: <b>'+item.score.toFixed(1)+'</b>/10</div>'+
+      '<details><summary>Ver detalhes</summary>'+detailsInner+'</details>'+
+    '</div>'+
+  '</article>';
+}
+
+function renderTierGroups(container, dataArr){
+  var byTier = {};
+  dataArr.forEach(function(it){ (byTier[it.tier]=byTier[it.tier]||[]).push(it); });
+  var html='';
+  TIER_ORDER.forEach(function(t){
+    if(!byTier[t]) return;
+    var list = byTier[t].slice().sort(function(a,b){return b.score-a.score;});
+    html += '<div class="tier-group" data-tiergroup="'+t+'">'+
+      '<div class="tier-head">'+
+        '<div class="tier-badge" style="background:'+TIER_COLORS[t]+'">'+t+'</div>'+
+        '<div><h3>Tier '+t+'</h3><div class="tier-desc">'+scoreLabel(t)+'</div></div>'+
+        '<div class="tier-num">'+list.length+' item'+(list.length>1?'s':'')+'</div>'+
+      '</div>'+
+      '<div class="grid">'+list.map(buildCardHTML).join('')+'</div>'+
+    '</div>';
+  });
+  container.innerHTML = html;
+}
+
+function buildGearCard(item, kindLabel){
+  var color = item.tier ? (TIER_COLORS[item.tier]||"#5A4A32") : "#5A4A32";
+  return ''+
+  '<div class="wcard" data-tier="'+(item.tier||'')+'" data-name="'+item.name.toLowerCase()+'">'+
+    '<div class="thumb"><img src="'+item.img+'" alt="'+item.name+'" loading="lazy" onerror="this.style.display=\'none\'"></div>'+
+    '<div class="info">'+
+      (item.tier ? '<span class="tag" style="background:'+color+'">'+item.tier+'-tier</span><br>' : '')+
+      '<h5>'+item.name+'</h5>'+
+      '<p>'+item.desc+'</p>'+
+    '</div>'+
+  '</div>';
+}
+
+function renderGearGroups(container, dataArr, includeUnrated){
+  var order = ["S","A","B","C"];
+  var byTier = {};
+  var unrated = [];
+  dataArr.forEach(function(it){
+    if(it.tier){ (byTier[it.tier]=byTier[it.tier]||[]).push(it); }
+    else unrated.push(it);
+  });
+  var html='';
+  order.forEach(function(t){
+    if(!byTier[t]) return;
+    html += '<div class="tier-group">'+
+      '<div class="tier-head"><div class="tier-badge" style="background:'+TIER_COLORS[t]+'">'+t+'</div><div><h3>Tier '+t+'</h3></div></div>'+
+      '<div class="wgrid">'+byTier[t].map(function(i){return buildGearCard(i);}).join('')+'</div>'+
+    '</div>';
+  });
+  if(includeUnrated && unrated.length){
+    html += '<div class="tier-group">'+
+      '<div class="tier-head"><div class="tier-badge" style="background:#5A4A32">–</div><div><h3>Sem tier de combate</h3><div class="tier-desc">Consumíveis/progressão — não fazem sentido ranqueados como dano</div></div></div>'+
+      '<div class="wgrid">'+unrated.map(function(i){return buildGearCard(i);}).join('')+'</div>'+
+    '</div>';
+  }
+  container.innerHTML = html;
+}
+
+function renderNovos(){
+  var html = NOVOS_STANDS.map(function(s){
+    var imgBlock = s.img
+      ? '<img src="'+s.img+'" alt="'+s.name+'" loading="lazy" onerror="this.parentElement.classList.add(\'img-fail\')">'
+      : '';
+    return '<article class="card'+(s.img?'':' img-fail')+'" data-name="'+s.name.toLowerCase()+'">'+
+      '<div class="photo'+(s.img?'':' img-fail')+'">'+imgBlock+'<div class="noimg">🖼<br>sem imagem<br>na fonte</div>'+
+      '<span class="tierflag" style="background:#5A4A32">?</span></div>'+
+      '<div class="body"><h4>'+s.name+'</h4><div class="abbr">Abrev.: '+s.abbr+'</div>'+
+      '<p class="plainnote" style="margin-top:8px;">'+s.note+'</p></div>'+
+    '</article>';
+  }).join('');
+  document.getElementById('novosContainer').innerHTML = html;
+}
+
+function renderUnratedCards(){
+  var extra = CARDS_UNRATED.map(function(c){
+    return {name:c.name, tier:"—", score:0, img:c.img, kind:null,
+      pros:[], cons:[], desc:"Descrição e tier de combate não detalhados nas fontes pesquisadas — a carta existe no catálogo oficial da wiki, mas ainda sem análise publicada."};
+  });
+  var byGroup = document.createElement('div');
+  byGroup.className='tier-group';
+  byGroup.innerHTML = '<div class="tier-head"><div class="tier-badge" style="background:#5A4A32">?</div>'+
+    '<div><h3>Sem tier confirmado</h3><div class="tier-desc">Existem no jogo, mas nenhuma fonte cruzada publicou tier pra elas ainda</div></div>'+
+    '<div class="tier-num">'+extra.length+' itens</div></div>'+
+    '<div class="grid">'+extra.map(function(it){
+      var imgBlock = it.img ? '<img src="'+it.img+'" alt="'+it.name+'" loading="lazy" onerror="this.parentElement.classList.add(\'img-fail\')">' : '';
+      return '<article class="card" data-tier="—" data-name="'+it.name.toLowerCase()+'">'+
+        '<div class="photo">'+imgBlock+'<div class="noimg">🖼<br>sem imagem<br>na fonte</div>'+
+        '<span class="tierflag" style="background:#5A4A32">?</span></div>'+
+        '<div class="body"><h4>'+it.name+'</h4>'+
+        '<p class="plainnote" style="margin-top:8px;">'+it.desc+'</p></div>'+
+      '</article>';
+    }).join('')+'</div>';
+  return byGroup.outerHTML;
+}
+
+/* ---- init ---- */
+document.addEventListener('DOMContentLoaded', function(){
+
+  // hero facts
+  document.getElementById('factStands').textContent = (STANDS.length + NOVOS_STANDS.length);
+  document.getElementById('factCards').textContent = (CARDS.length + CARDS_UNRATED.length);
+  document.getElementById('factWeapons').textContent = WEAPONS.length;
+  document.getElementById('factItems').textContent = ITEMS.length;
+
+  // stands
+  var standsContainer = document.getElementById('standsContainer');
+  renderTierGroups(standsContainer, STANDS);
+  document.getElementById('countStands').textContent = STANDS.length+' Stands com tier confirmado (+ '+NOVOS_STANDS.length+' na aba "Novos")';
+
+  // cards
+  var cardsContainer = document.getElementById('cardsContainer');
+  renderTierGroups(cardsContainer, CARDS);
+  cardsContainer.insertAdjacentHTML('beforeend', renderUnratedCards());
+  document.getElementById('countCards').textContent = CARDS.length+' com tier + '+CARDS_UNRATED.length+' sem tier ainda';
+
+  // gear
+  renderGearGroups(document.getElementById('weaponsContainer'), WEAPONS, false);
+  renderGearGroups(document.getElementById('itemsContainer'), ITEMS, true);
+
+  // novos
+  renderNovos();
+
+  // sources
+  document.getElementById('sourcesList').innerHTML = SOURCES.map(function(s){
+    return '<li><b>'+s.name+'</b><span>'+s.desc+'</span><br><a href="'+s.url+'" target="_blank" rel="noopener">'+s.url+'</a></li>';
+  }).join('');
+
+  // tabs
+  var tabButtons = document.querySelectorAll('nav.tabs button');
+  tabButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      tabButtons.forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+      document.querySelectorAll('section.panel').forEach(function(p){p.classList.remove('active');});
+      document.getElementById('panel-'+btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // search + tier filter — stands
+  function wireFilter(searchId, container, chipsScopeSelector){
+    var search = document.getElementById(searchId);
+    if(!search) return;
+    function apply(){
+      var q = search.value.trim().toLowerCase();
+      container.querySelectorAll('.card, .wcard').forEach(function(card){
+        var matches = !q || card.dataset.name.indexOf(q) !== -1;
+        card.style.display = matches ? '' : 'none';
+      });
+      container.querySelectorAll('.tier-group').forEach(function(group){
+        var visible = group.querySelectorAll('.card:not([style*="display: none"]), .wcard:not([style*="display: none"])').length;
+        group.style.display = visible ? '' : 'none';
+      });
+    }
+    search.addEventListener('input', apply);
+  }
+  wireFilter('searchStands', standsContainer);
+  wireFilter('searchCards', cardsContainer);
+
+});
+</script>
+
+</body>
+</html>
